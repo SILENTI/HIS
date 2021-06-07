@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.FunDao">
+
+    <!--dao层的分页查询-->
+    <select id="findUserByPage" resultMap="findUserByPage">
+                select * from t_user limit #{start} , #{length};
+</select>
+    <resultMap id="findUserByPage" type="com.domain.User">
+        <id property="serial" column="serial"></id>
+        <result property="username" column="username"></result>
+        <result property="password" column="password"></result>
+    </resultMap>
+
+    <!--查询数据库中数据的总条数-->
+        <select id="total" resultType="int">
+                select count(*) from t_user;
+        </select>
+
+    <!--查询所用的功能信息-->
+        <select id="findAll" resultType="com.domain.Fun">
+            select * from t_fun ;
+        </select>
+
+    <!--新增菜单信息-->
+        <insert id="inserttMenu" >
+            insert into t_fun values (#{fname},#{ftype},#{fhref},#{pid},#{auth});
+        </insert>
+</mapper>

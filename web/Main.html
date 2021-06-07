@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>楼兰医院</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">楼兰医院管理系统</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    华佗
+                    <!--可以在这里展示- User数据信息 -->
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href=" ">基本资料</a></dd>
+                    <dd><a href=" ">安全设置</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="Login.html">退出登录</a></li><!--直接回到原来的登录页面-->
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+                <li class="layui-nav-item">
+
+                    <a class="" href="javascript:;">权限管理</a>
+                    <dl class="layui-nav-child">
+
+                        <dd><a href="UserDisplay.jsp" target="content">用户管理</a></dd>
+                        <!--查询的数据的页码 page 和 条数 rows-->
+
+                        <dd><a href="RoleBased.jsp" target="content">角色管理</a></dd>
+
+                    <!--功能管理-->
+                        <dd><a href="Function.jsp" target="content">功能管理</a></dd>
+                        <!--<dd><a href="写的是超链接">超链接</a></dd>-->
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">基本信息管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">医生管理</a></dd>
+                        <dd><a href="javascript:;">药品管理</a></dd>
+                        <dd><a href="javascript:;">项目管理</a></dd>
+                        <dd><a href="javascript:;">供应商管理</a></dd>
+                        <dd><a href="javascript:;">药品单位管理</a></dd>
+                        <!--<dd><a href="">超链接</a></dd>-->
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">门诊管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">挂号</a></dd>
+                        <dd><a href="javascript:;">划价</a></dd>
+                        <dd><a href="javascript:;">缴费</a></dd>
+                        <dd><a href="javascript:;">退费</a></dd>
+                        <!--<dd><a href="">超链接</a></dd>-->
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">药局管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">出药</a></dd>
+                        <dd><a href="javascript:;">退药</a></dd>
+                        <dd><a href="javascript:;">进药</a></dd>
+                        <!--<dd><a href="">超链接</a></dd>-->
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <!-- 内容主体区域 内容的展示-->
+        <div style="padding: 15px;">
+
+            <!--行内框架：在该主体区域，展示所查询的内容-->
+            <!--<iframe name="content" height="100%" width="100%" frameborder="0"></iframe>-->
+
+            <div class="main_page">
+                <iframe name="content" scrolling="no" frameborder="0" style="min-height:700px;width:100%;height:100%;"></iframe>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="layui-footer">
+        <!-- 底部固定区域 -->
+
+        © layui.com - 底部固定区域
+    </div>
+
+</div>
+<script src="layui/layui.js"></script>
+<script>
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+
+    });
+</script>
+
+<!--调整-行内框架的窗口的展示，进行自动调整-->
+<script>
+    // 计算页面的实际高度，iframe自适应会用到
+    function calcPageHeight(doc) {
+        var cHeight = Math.max(doc.body.clientHeight, doc.documentElement.clientHeight)
+        var sHeight = Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight)
+        var height  = Math.max(cHeight, sHeight)
+        return height
+    }
+   /* //根据ID获取iframe对象
+    var ifr = document.getElementById('main')
+    ifr.onload = function() {
+        //解决打开高度太高的页面后再打开高度较小页面滚动条不收缩
+        ifr.style.height='0px';
+        var iDoc = ifr.contentDocument || ifr.document
+        var height = calcPageHeight(iDoc)
+        if(height < 850){
+            height = 850;
+        }
+        ifr.style.height = height + 'px'
+    }*/
+</script>
+        </body>
+</html>

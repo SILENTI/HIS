@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx
+        https://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        https://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--自动扫描注解，交给Spring管理-->
+    <context:component-scan base-package="com.controller,com.service,com.dao"/>
+
+    <!--配置数据库-->
+        <!--引入properties文件-->
+        <context:property-placeholder  location="classpath:jdbc.properties"/>
+
+        <!--管理数据源-->
+                <!--使用阿里巴巴的数据源-->
+         <!--<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close"
+               p:driverClassName="${mysql.driver}"
+               p:url="${mysql.url}"
+               p:username="${mysql.username}"
+               p:password="${mysql.password}"
+               p:maxActive="${mysql.maxActive}"
+               p:maxIdle="${mysql.maxIdle}"
+               p:minIdle="${mysql.minIdle}"
+               p:maxWait="${mysql.maxWait}"
+         ></bean>-->
+                       <!--配置BasicDataSource数据源-->
+   <!--<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close"
+          p:driverClassName="${mysql.driver}"
+          p:url="${mysql.url}"
+          p:username="${mysql.username}"
+          p:password="${mysql.password}"
+          p:maxActive="${mysql.maxActive}"
+          p:maxIdle="${mysql.maxIdle}"
+          p:minIdle="${mysql.minIdle}"
+          p:maxWait="${mysql.maxWait}"
+    ></bean>-->
+
+<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+    <!-- 数据库连接 -->
+    <property name="driverClassName" value="${mysql.driver}" />
+    <property name="url" value="${mysql.url}" />
+    <property name="username" value="${mysql.username}" />
+    <property name="password" value="${mysql.password}" />
+    <!-- 连接池设置 -->
+    <property name="initialSize" value="5" />
+    <property name="maxActive" value="${mysql.maxActive}" />
+    <property name="maxIdle" value="${mysql.maxIdle}" />
+    <property name="minIdle" value="${mysql.minIdle}"/>
+    <property name="maxWait" value="${mysql.maxWait}" />
+</bean>
+
+<!--<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    &lt;!&ndash; 数据库连接 &ndash;&gt;
+        <property name="driverClassName" value="${mysql.driver}" />
+        <property name="url" value="${mysql.url}" />
+        <property name="username" value="${mysql.username}" />
+        <property name="password" value="${mysql.password}" />
+    &lt;!&ndash; 连接池设置 &ndash;&gt;
+        <property name="initialSize" value="5" />
+        <property name="maxActive" value="${mysql.maxActive}" />
+        <property name="maxIdle" value="${mysql.maxIdle}" />
+        <property name="minIdle" value="${mysql.minIdle}"/>
+        <property name="maxWait" value="${mysql.maxWait}" />
+</bean>-->
+
+    <!--管理Session工厂-->
+        <!--<bean id="mapper" class="org.mybatis.spring.SqlSessionFactoryBean"
+              p:dataSource-ref="dataSource"
+              p:configLocation="classpath:Mybatis/config/mybatis-config.xml"
+        ></bean>
+        <bean id="mapper" class="org.mybatis.spring.mapper.MapperScannerConfigurer"
+              p:sqlSessionFactoryBeanName="sessionFactory"
+              p:basePackage="com.dao"
+        ></bean>-->
+        <!--管理Session工厂-->
+    <bean id="mapper" class="org.mybatis.spring.SqlSessionFactoryBean">
+            <property name="dataSource" ref="dataSource"/>
+            <property name="configLocation" value="classpath:Mybatis/config/mybatis-config.xml"/>
+    </bean>
+
+    <!--<bean id="mapper" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sessionFactory"/>
+        <property name="basePackage" value="com.dao"/>
+    </bean>-->
+
+    <!--事务管理-->
+    <!-- 事务管理者 -->
+    <bean id="manager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <!-- 事务策略 + 切入点 注解实现-->
+    <tx:annotation-driven transaction-manager="manager"></tx:annotation-driven>
+
+
+
+
+
+
+</beans>

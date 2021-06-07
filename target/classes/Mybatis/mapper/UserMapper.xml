@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+    <mapper namespace="com.dao.UserDao">
+        <!--查询单个用户信息-->
+            <select id="selectUserOne" resultType="com.domain.User">
+                    select * from t_user where username = #{userName} and password = #{passWord};
+            </select>
+
+        <!--删除用户信息-->
+            <delete id="deleteUser">
+                delete from t_user where username = #{userName} and password = #{passWord};
+            </delete>
+
+        <!--新增用户信息-->
+            <insert id="insertUser">
+                    insert into t_user (username,password) values (#{username},#{password});
+            </insert>
+
+        <!--查询用户表信息-->
+            <select id="selectRole" resultType="com.domain.Role">
+                    select * from t_role
+            </select>
+
+            <select id="selectUserInfo" resultType="User">
+                select * from t_user ;
+                <where>
+                    <if test="username !=null and username != '' ">
+                        username = #{username}
+                    </if>
+
+                    <if test="password !=null and password != ''">
+                        and password = #{password}
+                    </if>
+                </where>
+            </select>
+    </mapper>
+

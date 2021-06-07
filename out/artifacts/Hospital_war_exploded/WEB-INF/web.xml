@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+
+    <!--以前使用原生的方式-->
+    <!--&lt;!&ndash; &lt;!&ndash;自动登录&ndash;&gt;
+    <filter>
+        <filter-name>AutoLogin</filter-name>
+        <filter-class>com.util.AutoLoginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AutoLogin</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>&ndash;&gt;
+
+    &lt;!&ndash;自动登录，暂时关闭&ndash;&gt;
+
+
+    &lt;!&ndash;配置MySpringMVC框架&ndash;&gt;
+    <servlet>
+        <servlet-name>MySpringMVC</servlet-name>
+        <servlet-class>org.DispatcherServlet</servlet-class>
+
+        &lt;!&ndash;通过注解&ndash;&gt;
+        <init-param>
+            <param-name>controller-scan</param-name>
+            <param-value>com.controller</param-value>
+        </init-param>
+        &lt;!&ndash;通过配置mvc文件&ndash;&gt;
+        &lt;!&ndash; <init-param>
+        <param-name>classpath</param-name>
+        &lt;!&ndash;所取的名&ndash;&gt;
+        <param-value>mvc.xml</param-value>
+        &lt;!&ndash;所找寻的配置文件&ndash;&gt;
+         </init-param>&ndash;&gt;
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MySpringMVC</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    &lt;!&ndash;登录认证&ndash;&gt;
+    <filter>
+        <filter-name>LoginFilter</filter-name>
+        <filter-class>com.util.LoginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/</url-pattern>
+    </filter-mapping>
+
+
+
+
+    <servlet>
+        <servlet-name>LoginController</servlet-name>
+        <servlet-class>com.controller.LoginController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginController</servlet-name>
+        <url-pattern>/HospitalSystem</url-pattern>
+    </servlet-mapping>
+
+    &lt;!&ndash;用户管理&ndash;&gt;
+    <servlet>
+        <servlet-name>userManagementController</servlet-name>
+        <servlet-class>com.controller.UserManagementController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>userManagementController</servlet-name>
+        <url-pattern>/userManagementController</url-pattern>
+    </servlet-mapping>
+
+
+    &lt;!&ndash;连续用户信息查询&ndash;&gt;
+    <servlet>
+        <servlet-name>findUser</servlet-name>
+        <servlet-class>com.controller.UserManagementController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>findUser</servlet-name>
+        <url-pattern>/findUser</url-pattern>
+    </servlet-mapping>
+
+    &lt;!&ndash;删除用户信息&ndash;&gt;
+    <servlet>
+        <servlet-name>DeteleUserInformation</servlet-name>
+        <servlet-class>com.controller.DeleteUserController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeteleUserInformation</servlet-name>
+        <url-pattern>/DeteleUserInformation</url-pattern>
+    </servlet-mapping>-->
+
+
+    <!--配置Spring-->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <!--指定Spring核心配置文件的位置-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:spring.xml</param-value>
+    </context-param>
+
+    <!--配置Spring-MVC-->
+    <servlet>
+        <servlet-name>mvc</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:spring-mvc.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>mvc</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <!--编码过滤器-->
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>utf-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+
+
+
+</web-app>
+

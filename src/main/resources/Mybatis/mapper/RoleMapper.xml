@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.RoleDao">
+
+    <!--查询所有角色表的信息-->
+        <select id="findRoel" resultMap="findRoel">
+            select * from t_role;
+        </select>
+        <resultMap id="findRoel" type="com.domain.Role">
+            <id property="rid" column="rid"></id>
+            <result property="rname" column="rname"></result>
+            <result property="rdescription" column="rdescription"></result>
+        </resultMap>
+
+</mapper>
