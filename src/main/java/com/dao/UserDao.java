@@ -18,7 +18,7 @@ public interface UserDao {
     public User selectUserOne (HashMap<String,Object> values) ;
 
     /**@param删除用户信息*/
-    @Delete("  delete from t_user where username = #{userName} and password = #{passWord}")
+    @Delete("  delete from t_user where username = #{username} and password = #{passWord}")
     public void deleteUser(HashMap<String,Object> map);
 
     /**@param用于新建用户信息*/

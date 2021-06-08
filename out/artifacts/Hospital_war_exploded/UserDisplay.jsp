@@ -26,8 +26,10 @@
         <th lay-data="{field:'password', width:250}">密码</th>
         <th lay-data="{fixed: 'right', width:400, align:'center', toolbar: '#barDemo'}"></th>
     </tr>
+
     </thead>
 </table>
+<div id="demo7"></div>
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-warm " lay-event="edit">编辑</a>
@@ -36,6 +38,7 @@
 
 <script src="layui/layui.js" charset="utf-8"></script>
 
+<%--layui表格--%>
 <script>
     layui.use('table', function(){
         var table = layui.table;
@@ -62,6 +65,7 @@
                     success:function (result){
                         //响应成功后调用的回调函数
                         layer.alert('成功',function(){
+                            layer.close(index);
                             layer.closeAll();//关闭所有的layer弹出层
                         });
                     }
@@ -97,6 +101,7 @@
         });
     });
 </script>
+<%--用户信息导入--%>
 <script>
     layui.use(['upload', 'element', 'layer'], function(){
         var $ = layui.jquery

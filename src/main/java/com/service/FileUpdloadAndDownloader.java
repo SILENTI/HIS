@@ -14,6 +14,7 @@ public class FileUpdloadAndDownloader {
     public String userInfoImport (MultipartFile file) {
             //解析MultipartFile
         Workbook book = null ;
+        UserDao userDao = MybatisUtil.getMapper(UserDao.class,true);
         try {
             //解析得到的内容，写入数据库
                 book = WorkbookFactory.create(file.getInputStream());
@@ -22,7 +23,7 @@ public class FileUpdloadAndDownloader {
                 Row row = sheet.getRow(i);
 
                 Cell c1 = row.getCell(0);
-                Cell c2 = row.getCell(0);
+                Cell c2 = row.getCell(1);
 
                 String username = c1.toString() ;
                 //读取excel是所有的数字形式的数据都会变成浮点 "123.0"->"123"
@@ -35,9 +36,9 @@ public class FileUpdloadAndDownloader {
                 //upass = upass.substring(0,upass.indexOf("."));
 
                 User user = new User(null,username,password,null,null);
-                UserDao userDao = MybatisUtil.getMapper(UserDao.class,true);
                 userDao.inportUserInfo(user);
             }
+
             } catch (IOException e) {
                 e.printStackTrace();
                 //如果抛出该异常，则证明没有导入成功
