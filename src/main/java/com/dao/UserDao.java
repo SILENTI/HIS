@@ -24,6 +24,10 @@ public interface UserDao {
     /**@param用于新建用户信息*/
     @Insert(" insert into t_user (username,password) values (#{username},#{password})")
     public void insertUser (HashMap<String,Object> values);
+    //构成方法重载
+    /**@param用于新建用户信息*/
+    @Insert(" insert into t_user (username,password) values (#{username},#{password})")
+    public void inportUserInfo (User user);
 
     @Select("select * from t_user")
     public List<User> selectUsers();

@@ -1,77 +1,54 @@
 package com.service;
 
+import com.dao.UserDao;
+import com.domain.User;
+import com.util.MybatisUtil;
+import org.apache.poi.ss.usermodel.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class FileUpdloadAndDownloader {
-   /* public CommonResponse importExcel(MultipartFile file) {
+    public String userInfoImport (MultipartFile file) {
+            //解析MultipartFile
+        Workbook book = null ;
         try {
-            InputStream inputStream = file.getInputStream();
-//            log.info("============fileName=============="+file.getOriginalFilename());
-            List list = readExcel(inputStream, file.getOriginalFilename());
-            inputStream.close();
-            for (int i = 0; i < list.size(); i++) {
-                Object object = list.get(i);
-//                log.info("============object=============="+object.toString());
+            //解析得到的内容，写入数据库
+                book = WorkbookFactory.create(file.getInputStream());
+                Sheet sheet = book.getSheetAt(0) ;
+            for(int i=1;i<sheet.getLastRowNum();i++){
+                Row row = sheet.getRow(i);
 
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return CommonResponse.success();
-    }
-    public static List readExcel(InputStream in, String fileName) throws Exception {
-        List list = new ArrayList<>();
-        //创建Excel工作薄
-        Workbook work = getWorkbook(in, fileName);
-        if (null == work) {
-            throw new Exception("创建Excel工作薄为空！");
-        }
-        Row row = null;
-        Cell cell = null;
+                Cell c1 = row.getCell(0);
+                Cell c2 = row.getCell(0);
 
-        Sheet sheet = work.getSheetAt(0);
-        // 获取第一个实际行的下标
-//        log.info("======sheet.getFirstRowNum()=========" + sheet.getFirstRowNum());
-        // 获取最后一个实际行的下标
-        log.info("======sheet.getLastRowNum()=========" + sheet.getLastRowNum());
-        for (int i = sheet.getFirstRowNum(); i <= sheet.getLastRowNum(); i++) {
-            row = sheet.getRow(i);
-            // 获取在某行第一个单元格的下标
-            log.info("======row.getFirstCellNum()=========" + row.getFirstCellNum());
-            // 获取在某行的列数
-            log.info("======row.getLastCellNum()=========" + row.getLastCellNum());
-            if (row == null || row.getFirstCellNum() == i) {
-                continue;
+                String username = c1.toString() ;
+                //读取excel是所有的数字形式的数据都会变成浮点 "123.0"->"123"
+                String password = c2.toString() ;
+                password = password.replace(".0","");
+
+                System.out.println(username + "  "+password);
+
+                //upass = upass.split(".")[0];
+                //upass = upass.substring(0,upass.indexOf("."));
+
+                User user = new User(null,username,password,null,null);
+                UserDao userDao = MybatisUtil.getMapper(UserDao.class,true);
+                userDao.inportUserInfo(user);
             }
-            List<Object> li = new ArrayList<>();
-            for (int j = row.getFirstCellNum(); j < row.getLastCellNum(); j++) {
-                cell = row.getCell(j);
-                li.add(cell);
+            } catch (IOException e) {
+                e.printStackTrace();
+                //如果抛出该异常，则证明没有导入成功
+                return "导入失败";
+            }finally {
+            try {
+                book.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            list.add(li);
         }
-        work.close();//这行报错的话  看下导入jar包的版本
-        return list;
-        public static Workbook getWorkbook (InputStream inStr, String fileName) throws Exception {
-            Workbook workbook = null;
-            String fileType = fileName.substring(fileName.lastIndexOf("."));
-            log.info("==========fileType========" + fileType);
-            if (".xls".equals(fileType)) {
-                workbook = new HSSFWorkbook(inStr);
-            } else if (".xlsx".equals(fileType)) {
-                workbook = new XSSFWorkbook(inStr);
-            } else {
-                throw new Exception("请上传excel文件！");
-            }
-            return workbook;
-        }*/
+            return "导入成功";
+        }
     }

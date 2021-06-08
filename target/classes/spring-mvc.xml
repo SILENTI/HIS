@@ -42,6 +42,6 @@
     <mvc:resources location="/js/" mapping="/js/**" />-->
 
     <!--用户信息导入-->
-    <bean id="" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
 
 </beans>

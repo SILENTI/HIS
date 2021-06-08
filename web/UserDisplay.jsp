@@ -113,8 +113,12 @@
             //,multiple: true
             ,bindAction: '#test9'
             ,done: function(res){
-                layer.msg('上传成功');
-                console.log(res)
+                if (parseInt(res.code) === 0) {
+                    layer.msg('导入成功');
+                }
+            }
+            ,error: function(index, upload){
+                //当上传失败时，你可以生成一个“重新上传”的按钮，点击该按钮时，执行 upload() 方法即可实现重新上传
             }
         });
     });
