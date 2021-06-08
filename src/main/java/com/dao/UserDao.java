@@ -19,7 +19,7 @@ public interface UserDao {
 
     /**@param删除用户信息*/
     @Delete("  delete from t_user where username = #{userName} and password = #{passWord}")
-    public void deleteUser(HashMap<String,Object> values);
+    public void deleteUser(HashMap<String,Object> map);
 
     /**@param用于新建用户信息*/
     @Insert(" insert into t_user (username,password) values (#{username},#{password})")

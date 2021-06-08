@@ -41,4 +41,7 @@
     <mvc:resources location="/images/" mapping="/images/**" />
     <mvc:resources location="/js/" mapping="/js/**" />-->
 
+    <!--用户信息导入-->
+    <bean id="" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
+
 </beans>
