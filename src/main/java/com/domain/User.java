@@ -35,14 +35,6 @@ public class User {
         this.other2 = other2;
     }
 
-    public Integer getSerial() {
-        return uid;
-    }
-
-    public void setuid(Integer uid) {
-        this.uid = uid;
-    }
-
     public String getUsername() {
         return username;
     }
@@ -57,6 +49,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getUid() {
+        return uid;
+    }
+
+    public void setUid(Integer uid) {
+        this.uid = uid;
     }
 
     @Override

@@ -13,6 +13,8 @@ import java.util.Map;
 @Service
 public class UserService {
 
+    private UserDao userDao = MybatisUtil.getMapper(UserDao.class,true);
+
     public void servier (User user){
 
         //调用dao层
@@ -39,9 +41,19 @@ public class UserService {
         Map map = (Map) JSON.parse(data);
         HashMap values = new HashMap();
         values.put("username",map.get("username"));values.put("password",map.get("password"));
+        System.out.println(values);
         UserDao userDao = MybatisUtil.getMapper(UserDao.class,true);
         userDao.deleteUser(values);
         //优化，如果执行成功就返回true
         return "成功";
+    }
+
+    //修改用户信息
+    public String EditUserInfo (Integer uid , String username,String password ) {
+        if (uid !=null && username != null && username !="" && password != null && password !="" ){
+            userDao.updateUserInfo(new User(uid,username,password,null,null));
+            return "编辑成功";
+        }
+        return "编辑失败";
     }
 }
