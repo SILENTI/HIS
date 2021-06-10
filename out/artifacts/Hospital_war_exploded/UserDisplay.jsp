@@ -56,7 +56,7 @@
             <div class="layui-form-item">
                 <div class="layui-input-block">
                     <button class="layui-btn" lay-submit lay-filter="formDemo" id="BOX">立即提交</button>
-                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    <button class="layui-btn layui-btn-primary" id="CloseBOX">取消</button>
                 </div>
             </div>
         </form>
@@ -110,25 +110,29 @@
                         area:[400],  //页面的大小
                         title:'信息修改', //标题
                         content:$('#EditUserInfo'),//引入模板
-                        success: function(layero, index){
+                        end: function(){
                             // layer.closeAll();
                             // $(".BOX").click();//弹出框  关闭后刷新，停留在当前页
-                            // location.reload();//弹出层结束后，刷新主页面
+                            location.reload();//弹出层结束后，刷新主页面
                             // parent.location.reload();
                             // window.parent.location.reload();//刷新父页面
                             //直接跳转-ajax
                             $.ajax({
-                                type:'post',//ajax请求类型
+                                type:'got',//ajax请求类型
                                 url:'UserDisplay.jsp', //ajax请求命令,
                                 synch:true, //设置异步的ajax请求，还是同步的ajax请求
                             });
-
-
                         }
                     });
 
                 }
             });
+
+            /*//事件绑定
+            $(document).on('click','#CloseBOX',function(){
+                llayer.closeAll();//关闭所有层
+            });*/
+
             var $ = layui.$, active = {
                 getCheckData: function(){ //获取选中数据
                     var checkStatus = table.checkStatus('idTest')

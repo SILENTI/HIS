@@ -67,32 +67,5 @@
         </script>
 
 
-    <%--<table id="demo" lay-filter="test"></table>
-
-        <script src="/layui/layui.js"></script>
-        <script>
-
-            layui.use('table', function(){
-                var table = layui.table;
-
-                //第一个实例
-                table.render({
-                    elem: '#demo'
-                    ,height: 312
-                    ,url: 'SelectRole' //数据接口
-                    ,page: true //开启分页
-                    ,cols: [[ //表头
-                        {type:'checkbox'}
-                        ,{field: 'rid', title: 'ID', width:50, sort: true, fixed: 'left'}
-                        ,{field: 'rname', title: '用户名', width:80}
-                        ,{field: 'rdescription', title: '描述', width:200, sort: true}
-                    ]]
-                });
-
-            });
-        </script>--%>
-
-
-
     </body>
 </html>
