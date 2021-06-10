@@ -110,13 +110,18 @@
                         area:[400],  //页面的大小
                         title:'信息修改', //标题
                         content:$('#EditUserInfo'),//引入模板
-                        end:function(){
+                        success: function(layero, index){
                             // layer.closeAll();
                             // $(".BOX").click();//弹出框  关闭后刷新，停留在当前页
                             // location.reload();//弹出层结束后，刷新主页面
                             // parent.location.reload();
                             // window.parent.location.reload();//刷新父页面
-                            //直接跳转
+                            //直接跳转-ajax
+                            $.ajax({
+                                type:'post',//ajax请求类型
+                                url:'UserDisplay.jsp', //ajax请求命令,
+                                synch:true, //设置异步的ajax请求，还是同步的ajax请求
+                            });
 
 
                         }
